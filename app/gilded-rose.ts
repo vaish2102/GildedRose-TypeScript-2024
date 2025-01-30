@@ -23,12 +23,10 @@ export class GildedRose {
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       //Quality goes down for all items other than Aged Brie , Sulfuras,Backstage pass
-      if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
+      if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert' && this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
         if (this.items[i].quality > 0) {
-          if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-            this.items[i].quality = this.items[i].quality - 1
+            this.reduceQualityForOtherItems(this.items[i])
           }
-        }
       } else {// Aged Brie or Backstage pass
         if (this.items[i].quality < 50) {
           this.items[i].quality = this.items[i].quality + 1
@@ -77,5 +75,9 @@ export class GildedRose {
     }
 
     return this.items;
+  }
+
+  reduceQualityForOtherItems(item:Item){
+    item.quality = item.quality - 1;
   }
 }
