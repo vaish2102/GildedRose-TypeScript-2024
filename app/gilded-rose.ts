@@ -24,27 +24,15 @@ export class GildedRose {
     for (let i = 0; i < this.items.length; i++) {
       //Quality goes down for all items other than Aged Brie , Sulfuras,Backstage pass
       if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert' && this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        if (this.items[i].quality > 0) {
-            this.reduceQualityForOtherItems(this.items[i])
-          }
+        //if (this.items[i].quality > 0) {
+            this.reduceQualityForOtherItems(this.items[i]);
+        //  }
       } else {// Aged Brie or Backstage pass
         if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1
+          this.increaseQualityForAgedBrieAndBackStage(this.items[i]);
           //Backstage pass
           if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-            //Backstage pass - sellIn less than or equal to 10 days , quality increases by 2
-            if (this.items[i].sellIn < 11) {
-              // quality shd never be greater than 50
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1
-              }
-            }
-            //Backstage pass - sellIn less than or equal to 5 days, quality increases by 3
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1
-              }
-            }
+              this.increaseQualityForBackstage(this.items[i]);
           }
         }
       }
@@ -77,7 +65,44 @@ export class GildedRose {
     return this.items;
   }
 
-  reduceQualityForOtherItems(item:Item){
-    item.quality = item.quality - 1;
+   // quality shd never be greater than 50
+   checkQualityBounds(item:Item){
+    let quality = item.quality;
+    if (quality < 0 || quality > 50){
+      return false;
+    }
+    return true;
   }
+
+
+  reduceQualityForOtherItems(item:Item){
+    item.quality = item.quality === 0?item.quality:item.quality - 1;
+  }
+
+
+
+  increaseQualityForBackstage(item:Item){
+    let sellIn = item.sellIn;
+    //Backstage pass - sellIn less than or equal to 10 days , quality increases by 2
+    if (sellIn < 11) {
+      if (this.checkQualityBounds(item)) {
+        item.quality = item.quality + 1;
+      }
+    }
+    //Backstage pass - sellIn less than or equal to 5 days, quality increases by 3
+    if (sellIn < 6) {
+      if (this.checkQualityBounds(item)) {
+        item.quality = item.quality + 1;
+      }
+    }
+    if(sellIn == 0){
+      item.quality = 0;
+    }
+  }
+
+  //Aged Brie and backstage- increase quality by 1
+  increaseQualityForAgedBrieAndBackStage(item:Item){
+    item.quality = item.quality === 50 ? item.quality : item.quality + 1;
+  }
+
 }
