@@ -51,20 +51,7 @@ export class GildedRose {
   updateValuesForBackstage(item:Item){
     item.sellIn = item.sellIn - 1;
     let sellIn = item.sellIn;
-    if(sellIn < 0){     //sellIn < 0 , quality set to 0 
-      item.quality = 0;
-    }
-    else{
-      item.quality = item.quality === 50 ? item.quality : item.quality + 1;
-      //Backstage pass - sellIn less than or equal to 10 days , quality increases by 2
-      if (sellIn < 11) {
-        item.quality = item.quality === 50 ? item.quality : item.quality + 1;
-      }
-      //Backstage pass - sellIn less than or equal to 5 days, quality increases by 3
-      if (sellIn < 6) {
-        item.quality = item.quality === 50 ? item.quality : item.quality + 1;
-      }
-    }  
+    item.quality = Math.min(sellIn > 10 ?  item.quality + 1 : ( sellIn > 6 ? item.quality + 2 : sellIn >= 0 ? item.quality + 3 :0),50);
   }
 
   updateValuesForAgedBrie(item:Item){
@@ -82,7 +69,6 @@ export class GildedRose {
   }
 
 }
-
 
 
 
