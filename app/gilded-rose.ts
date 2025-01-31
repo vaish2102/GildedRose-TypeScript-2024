@@ -83,26 +83,7 @@ export class GildedRose {
 
 }
 
-//Aged Brie - sellIn goes down by 1
-//Aged Brie - quality goes up by 1
-//Aged Brie - quality shouldn't cross 50
-
-//Backstage - sellIn goes down by 1
-//Backstage - quality is 0 if sellIn < 0
-//Backstage - quality goes up by 3 if sellIn = 0
-//Backstage - quality goes up by 3 if sellIn < 6
-//Backstage - quality goes up by 2 if sellIn > 5 and sellIn < 11
-//Backstage - quality goes up by 1 if sellIn > 10
-//Backstage - quality should not be more than 50
-
-//Other items - sellIn goes down by 1
-//Other items - quality goes down by 1 if sellin > 0
-//Other items - quality goes down by 2 if sellIn < 0
-//Other items - quality does down by 1 if sellIn = 0
 
 
-//Conjured Mana cake - sellIn goes down by 1
-//Conjured Mana cake - quality goes down by 2 if sellIn > 0
-//Conjured Mana cake - quality goes down by 4 if sellIn < 0
-//Conjured Mana cake - quality does down by 2 if sellIn = 0
-//Conjured Mana cake - quality should not be less than 0
+
+
